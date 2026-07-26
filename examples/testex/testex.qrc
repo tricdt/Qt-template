@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/include">
+        <file alias="Cirno.png">resources/images/Cirno.png</file>
+        <file alias="MicaBase.png">resources/images/MicaBase.png</file>
+        <file alias="Moon.png">resources/images/Moon.png</file>
+        <file alias="noise.png">resources/images/noise.png</file>
+    </qresource>
+</RCC>
