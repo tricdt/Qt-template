@@ -1,0 +1,2 @@
+#pragma once
+#include "algext.h" // IWYU pragma: export
