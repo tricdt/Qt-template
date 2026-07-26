@@ -1,0 +1,75 @@
+set(LIB_MAJOR_VERSION "1")
+set(LIB_MINOR_VERSION "0")
+set(LIB_PATCH_VERSION "0")
+set(LIB_VERSION_STRING "${LIB_MAJOR_VERSION}.${LIB_MINOR_VERSION}.${LIB_PATCH_VERSION}")
+project(QtGeometry VERSION 1.0.0 LANGUAGES CXX)
+
+# find_package(Qt6 COMPONENTS Core REQUIRED)
+if(BUILD_SHARED_LIBS)
+    set(QTGEOMETRY_LIB_TYPE SHARED)
+else()
+    set(QTGEOMETRY_LIB_TYPE STATIC)
+endif()
+
+FILE(GLOB ORIGIN *.h *.cpp)
+add_library(${PROJECT_NAME}
+    ${QTGEOMETRY_LIB_TYPE}
+    ${ORIGIN})
+add_library(QtExtra::QtGeometry ALIAS ${PROJECT_NAME})
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    OUTPUT_NAME "${PROJECT_NAME}"
+    FOLDER "Modules"
+)
+
+target_include_directories(${PROJECT_NAME}
+    PUBLIC
+        $<BUILD_INTERFACE:${QTEXTRA_BUILD_INCLUDE_DIR}>
+        $<BUILD_INTERFACE:${NAMESPACE_HEADER_LOCATION}>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
+
+target_link_libraries(${PROJECT_NAME}
+    PUBLIC
+        Qt6::Core Qt6::Widgets
+    PRIVATE
+        $<BUILD_INTERFACE:QtExtra::BuildFlags>
+)
+
+# Apply compile definitions from parent
+target_compile_definitions(${PROJECT_NAME}
+    PRIVATE
+        ${QTEXTRA_QT_DEFINITIONS}
+        ${QTEXTRA_VERSION_DEFINITIONS}
+        ${QTEXTRA_COMPILE_DEFINITIONS}
+)
+
+if(QTEXTRA_COMPILE_OPTIONS)
+    target_compile_options(${PROJECT_NAME} PRIVATE ${QTEXTRA_COMPILE_OPTIONS})
+endif()
+
+if(NOT BUILD_SHARED_LIBS)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC QTGEOMETRY_STATIC)
+else()
+    target_compile_definitions(${PROJECT_NAME} PRIVATE QTGEOMETRY_LIBRARY)
+endif()
+
+# Install the library and export targets
+install(TARGETS ${PROJECT_NAME}
+    EXPORT ${PROJECT_NAMESPACE}Targets
+    COMPONENT Library
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+# Install headers
+install(DIRECTORY ${QTEXTRA_BUILD_INCLUDE_DIR}/${PROJECT_NAME}/
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
+    FILES_MATCHING REGEX "^[^.]+$"
+)
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
+    FILES_MATCHING PATTERN "*.h"
+)
