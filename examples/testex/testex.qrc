@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/include">
+        <file alias="Cirno.png">resources/images/Cirno.png</file>
+        <file alias="MicaBase.png">resources/images/MicaBase.png</file>
+        <file alias="Moon.png">resources/images/Moon.png</file>
+        <file alias="noise.png">resources/images/noise.png</file>
+        <file alias="CollapsingWorld.png">resources/images/Model/CollapsingWorld.png</file>
+        <file alias="NaightNavigationStar.png">resources/images/Model/NaightNavigationStar.png</file>
+        <file alias="Light.png">resources/images/Model/Light.png</file>
+        <file alias="DarkForest.png">resources/images/Model/DarkForest.png</file>
+        <file alias="MaVieEnRose.png">resources/images/Model/MaVieEnRose.png</file>
+        <file alias="LASTSTARDUST.png">resources/images/Model/LASTSTARDUST.png</file>
+        <file alias="STYXHELIX.png">resources/images/Model/STYXHELIX.png</file>
+        <file alias="RainMan.png">resources/images/Model/RainMan.png</file>
+        <file alias="RunningInTheDark.png">resources/images/Model/RunningInTheDark.png</file>
+        <file alias="beach.png">resources/images/Card/beach.png</file>
+        <file alias="classroom.png">resources/images/Card/classroom.png</file>
+        <file alias="dream.png">resources/images/Card/dream.png</file>
+        <file alias="miku.png">resources/images/Card/miku.png</file>
+    </qresource>
+</RCC>
